@@ -157,7 +157,7 @@ class HTTP:
 		return await self.request(Request('GET', 'playlists', id=playlist_id))
 
 	async def get_me_playlists(self):
-		return
+		return await self.request(Request('GET', 'me/playlists', query={'limit': 50}))
 
 	async def get_user_playlists(self, user_id):
 		return await self.request(Request('GET', 'users/{}/playlists'.format(user_id), query={'limit': 50}))
