@@ -493,6 +493,30 @@ class Client:
 
 		return tracks
 
+	async def get_me_playlists(self):
+		'''
+		Get a list of playlists of the current user.
+		
+		:return: List[:class:`SimplePlaylist`]
+		'''
+		
+		data = await self.http.get_me_playlists()
+		
+		playlists = []
+
+		async for playlist_obj in Pager(self.http, data):
+			if playlist_obj is None:
+				playlists.append(None)
+			else:
+				playlist = SimplePlaylist(self, playlist_obj)
+				await playlist._fill_tracks(
+					PlaylistTrack,
+					Pager(self.http, await self.http.get_playlist_tracks(playlist.id))
+				)
+				playlists.append(playlist)
+
+		return playlists
+	
 	async def get_user_playlists(self, user):
 		'''
 		Get a list of attainable playlists a user owns.
