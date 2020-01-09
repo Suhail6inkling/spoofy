@@ -89,12 +89,15 @@ class Client:
 		Get a context for what user is currently playing.
 
 		:param kwargs: query params for this request
-		:return: :class:`PlayingContext`
+		:return: :class:`PlayingContext` or None
 		'''
 
 		data = await self.http.get_player(**kwargs)
 
-		return CurrentlyPlayingContext(self, data)
+		if data:
+			return CurrentlyPlayingContext(self, data)
+		else:
+			return None
 
 	async def player_currently_playing(self, **kwargs):
 		data = await self.http.player_currently_playing(**kwargs)
