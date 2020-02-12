@@ -459,6 +459,28 @@ class Client:
 		for slice in SliceIterator(tracks_fin, 100):
 			await self.http.playlist_add_tracks(playlist, slice, position=position)
 
+	async def playlist_remove_tracks(self, playlist, tracks):
+		'''
+		Remove several tracks to a playlist.
+
+		:param playlist: :class:`Playlist` instance or Spotify ID.
+		:param tracks: List of Spotify IDs or :class:`Track` instance (or a mix).
+		'''
+
+		playlist = self._get_id(playlist)
+
+		tracks_fin = []
+
+		for index, track in enumerate(tracks):
+			if isinstance(track, Object):
+				track = track.id
+			if not track.startswith('spotify:track:'):
+				track = 'spotify:track:' + track
+			tracks_fin.append(track)
+
+		for slice in SliceIterator(tracks_fin, 100):
+			await self.http.playlist_remove_tracks(playlist, slice, position=position)
+
 	async def get_playlist(self, playlist_id):
 		'''
 		Get a pre-existing playlist.
