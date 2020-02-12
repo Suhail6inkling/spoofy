@@ -479,7 +479,7 @@ class Client:
 			tracks_fin.append(track)
 
 		for slice in SliceIterator(tracks_fin, 100):
-			await self.http.playlist_remove_tracks(playlist, slice, position=position)
+			await self.http.playlist_remove_tracks(playlist, slice)
 
 	async def get_playlist(self, playlist_id):
 		'''
