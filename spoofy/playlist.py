@@ -87,6 +87,23 @@ class Playlist(Object, ExternalURLMixin, TrackMixin, ImageMixin, UserMixin):
 
 		await self._client.playlist_add_tracks(self.id, tracks, position=position)
 
+	async def add_track(self, track):
+		'''
+		Remove a track from the playlist.
+
+		:param track: Spotify ID or :class:`Track` instance.
+		'''
+
+		await self._client.playlist_remove_tracks(self.id, [track])
+
+	async def add_tracks(self, *tracks):
+		'''
+		Remove several tracks from the playlist.
+
+		:param tracks: List of Spotify IDs or :class:`Track` instances (or a mix).
+		'''
+
+		await self._client.playlist_remove_tracks(self.id, tracks)
 
 class SimplePlaylist(Playlist):
 	'''
