@@ -87,7 +87,7 @@ class Playlist(Object, ExternalURLMixin, TrackMixin, ImageMixin, UserMixin):
 
 		await self._client.playlist_add_tracks(self.id, tracks, position=position)
 
-	async def add_track(self, track):
+	async def remove_track(self, track):
 		'''
 		Remove a track from the playlist.
 
@@ -96,7 +96,7 @@ class Playlist(Object, ExternalURLMixin, TrackMixin, ImageMixin, UserMixin):
 
 		await self._client.playlist_remove_tracks(self.id, [track])
 
-	async def add_tracks(self, *tracks):
+	async def remove_tracks(self, *tracks):
 		'''
 		Remove several tracks from the playlist.
 
