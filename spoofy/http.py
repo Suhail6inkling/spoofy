@@ -170,7 +170,7 @@ class HTTP:
 										  json=dict(uris=track_ids, position=position)))
 	async def playlist_remove_tracks(self, playlist_id, track_ids):
 		return await self.request(Request('DELETE', 'playlists/{}/tracks'.format(playlist_id), 
-						  				  json=dict(uri=track_ids))
+						  				  json=dict(uri=track_ids)))
 
 	async def create_playlist(self, user_id, name, description, public, collaborative):
 		data = dict(
