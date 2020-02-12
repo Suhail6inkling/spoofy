@@ -477,7 +477,9 @@ class Client:
 			if not track.startswith('spotify:track:'):
 				track = 'spotify:track:' + track
 			tracks_fin.append(track)
-
+	
+		tracks_fin = [{"uri": id} for id in tracks_fin]
+	
 		for slice in SliceIterator(tracks_fin, 100):
 			await self.http.playlist_remove_tracks(playlist, slice)
 
